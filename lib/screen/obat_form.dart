@@ -5,22 +5,36 @@ import 'package:flutter/services.dart';
 import 'package:managevent/widgets/left_drawer.dart';
 import 'package:managevent/screen/show_prod.dart';
 
-class obatForm extends StatefulWidget {
-  // static String _namaObat = "";
-  // static String _deskripsi = "";
-  // static int _harga = 0;
-  // static String _jenisObat = "";
-  const obatForm({super.key});
+class Obat {
+  String namaObat;
+  String deskripsi;
+  int harga;
 
-  @override
-  State<StatefulWidget> createState() {
-    return obatFormField();
-  }
-
-  obatFormField createstate() => obatFormField();
+  Obat({required this.namaObat, required this.deskripsi, required this.harga});
 }
 
-class obatFormField extends State<obatForm> {
+class ObatForm extends StatefulWidget {
+  const ObatForm({super.key});
+  // String _namaObat;
+  // String _deskripsi;
+  // int _harga;
+  // //  String _jenisObat;
+  // ObatForm(this._namaObat, this._deskripsi, this._harga, {super.key});
+  @override
+  State<ObatForm> createState() => ObatFormField();
+}
+
+class ItemSingelton {
+  List<Obat> daftarObat = [];
+  static final ItemSingelton _instance = ItemSingelton._internal();
+  factory ItemSingelton() {
+    return _instance;
+  }
+  // ignore: unused_element
+  ItemSingelton._internal();
+}
+
+class ObatFormField extends State<ObatForm> {
   static String _namaObat = "";
   static int _harga = 0;
   static String _deskripsi = "";
@@ -248,7 +262,11 @@ class obatFormField extends State<obatForm> {
   }
 
   void onSavePressed(BuildContext context, String s) {
+    print("ok");
     if (_formKey.currentState!.validate()) {
+      ItemSingelton()
+          .daftarObat
+          .add(Obat(namaObat: _namaObat, deskripsi: _deskripsi, harga: _harga));
       showDialog(
         context: context,
         builder: (context) {

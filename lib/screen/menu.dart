@@ -86,7 +86,7 @@ class ShopCard extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => obatForm(),
+                  builder: (context) => const ObatForm(),
                 ));
           }
           if (item.name == "Lihat Daftar Obat") {

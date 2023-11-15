@@ -86,7 +86,7 @@ class ShopCard extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => obatForm(),
+                  builder: (context) => obatForm("", "", 0),
                 ));
           }
           if (item.name == "Lihat Daftar Obat") {
@@ -96,7 +96,7 @@ class ShopCard extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tomssbol ${item.name}!")));
+                content: Text("Kamu telah menekan tombol ${item.name}!")));
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text

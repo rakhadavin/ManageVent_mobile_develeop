@@ -59,7 +59,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const obatForm(),
+                    builder: (context) => MyHomePage(),
                   ));
               /*
     TODO: Buatlah routing ke ShopFormPage di sini,
