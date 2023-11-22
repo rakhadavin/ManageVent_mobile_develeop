@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:managevent/models/Obat.dart';
+import 'package:managevent/screen/show_detail.dart';
 
 import 'package:managevent/widgets/left_drawer.dart';
 
@@ -62,7 +63,23 @@ class _ProductPageState extends State<ProductPage> {
                   return ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (_, index) => InkWell(
-                            onTap: () => {},
+                            onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailObat(
+                                          snapshot.data![index].fields.namaObat,
+                                          snapshot.data![index].fields.amount,
+                                          snapshot.data![index].fields.harga,
+                                          snapshot
+                                              .data![index].fields.satuanHarga,
+                                          snapshot
+                                              .data![index].fields.jenisObat,
+                                          snapshot
+                                              .data![index].fields.deskripsi,
+                                          snapshot
+                                              .data![index].fields.expired)))
+                            },
                             child: Container(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 12),
