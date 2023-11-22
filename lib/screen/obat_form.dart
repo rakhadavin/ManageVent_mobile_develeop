@@ -202,39 +202,39 @@ class ObatFormField extends State<ObatForm> {
                   ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // Kirim ke Django dan tunggu respons
-                        // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                        final response = await request.postJson(
-                            "http://127.0.0.1:8000/create-flutter/",
-                            jsonEncode(<String, String>{
-                              'name': _namaObat,
-                              'price': _harga.toString(),
-                              'description': _deskripsi,
-                            }));
-                        if (response['status'] == 'success') {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Produk baru berhasil disimpan!"),
-                          ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage()),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content:
-                                Text("Terdapat kesalahan, silakan coba lagi."),
-                          ));
-                        }
-                      }
-                    },
-                    // onPressed: () {
-                    //   onSavePressed(context, 'Nama Item');
+                    // onPressed: () async {
+                    //   if (_formKey.currentState!.validate()) {
+                    //     // Kirim ke Django dan tunggu respons
+                    //     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                    //     final response = await request.postJson(
+                    //         "http://127.0.0.1:8000/create-flutter/",
+                    //         jsonEncode(<String, String>{
+                    //           'name': _namaObat,
+                    //           'price': _harga.toString(),
+                    //           'description': _deskripsi,
+                    //         }));
+                    //     if (response['status'] == 'success') {
+                    //       ScaffoldMessenger.of(context)
+                    //           .showSnackBar(const SnackBar(
+                    //         content: Text("Produk baru berhasil disimpan!"),
+                    //       ));
+                    //       Navigator.pushReplacement(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => MyHomePage()),
+                    //       );
+                    //     } else {
+                    //       ScaffoldMessenger.of(context)
+                    //           .showSnackBar(const SnackBar(
+                    //         content:
+                    //             Text("Terdapat kesalahan, silakan coba lagi."),
+                    //       ));
+                    //     }
+                    //   }
                     // },
+                    onPressed: () {
+                      onSavePressed(context, 'Nama Item');
+                    },
                     child: const Text(
                       'Save Changes',
                       style: TextStyle(color: Colors.white),
