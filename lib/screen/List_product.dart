@@ -61,27 +61,30 @@ class _ProductPageState extends State<ProductPage> {
                 } else {
                   return ListView.builder(
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${snapshot.data![index].fields.name}",
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
+                      itemBuilder: (_, index) => InkWell(
+                            onTap: () => {},
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${snapshot.data![index].fields.namaObat}",
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text("${snapshot.data![index].fields.price}"),
-                                const SizedBox(height: 10),
-                                Text(
-                                    "${snapshot.data![index].fields.description}")
-                              ],
+                                  const SizedBox(height: 10),
+                                  Text("${snapshot.data![index].fields.harga}"),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                      "${snapshot.data![index].fields.deskripsi}")
+                                ],
+                              ),
                             ),
                           ));
                 }
