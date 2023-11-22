@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:managevent/screen/List_product.dart';
 import 'package:managevent/screen/show_prod.dart';
 import 'package:managevent/screen/menu.dart';
 import 'package:managevent/screen/obat_form.dart';
@@ -61,10 +62,17 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => MyHomePage(),
                   ));
-              /*
-    TODO: Buatlah routing ke ShopFormPage di sini,
-    setelah halaman ShopFormPage sudah dibuat.
-    */
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Daftar Produk'),
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductPage()),
+              );
             },
           ),
         ],

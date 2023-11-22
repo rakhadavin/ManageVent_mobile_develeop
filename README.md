@@ -152,4 +152,80 @@ pada dasarnya clean architecture pada aplikasi FLutter digunakan guna mengedepan
     3. melakukan validasi, khususnya untuk harga, dimana user harus memasukkkan input berupa integer, dkemudian memeriksanya jika, setelah di parseInt menjadi error, maka ia adalah string dan sebagai respon error, saya memunculkan alert popup, kemudian membuat field itu bersih/kosong kembali dengan mengunakan Dropdownbutton
     4. Membuat dropdown untuk jenis satuan dan jjenis obat yang didaftarkan
 
-    4. class show produk saya bbuat untuk menampilkan produk yang sudah terdaftar dalam aplikasi.
+z 4. class show produk saya bbuat untuk menampilkan produk yang sudah terdaftar dalam aplikasi.
+
+<h1> TUGAS 9 </h1>
+1. Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+
+Ya, bisa, namun tergantung kebutuhan, jika hanya ingin melihat data sekedar akses tanpa manipulasi dan pemanggilan object, maka tanpa menggunakan model proses pengmbilan data JSON alkan lebih cepat dan praktis.
+
+Namun jika ingin ada manipulasi data, maka akan ada pemanggilan object untuk keerlian tertentu misalkan validasi, CRUD, dan sebagainya, sangat disarankan uhtuk menggunakan model supaya lebih terstruktur dan rapi, sehingga pemanggilna akan elbih mudah dann tidak membingungkan secara alur
+
+2.Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+
+CookieRequest dalam konteks Flutter mungkin merujuk pada objek atau kelas yang digunakan untuk membuat, mengelola, atau mengirim permintaan HTTP yang melibatkan pengaturan atau manipulasi cookie.
+
+instance CookieRequest perlu dibagikan ke seua komponen aplikasi flutter karena untuk memastikan semua komponen flutter memiliki data cookie tersebut sehingga tidak perlu login lagi untuk masuk ke komponen lain. Hal ini berkaitan dengan State management, yang berasangkutan dengan kelola akses dan izin , dan unutk kustomisasi permnitaan (HTTP) sehingga integrasi perbahan akan mudah dilakukan.
+
+pengujian unit test yang lebih mudah.
+
+3. Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.
+
+a. Ambil Data JSON: Dapatkan data dari sumbernya, seperti API endpoint, file JSON, atau server.
+
+b. Konversi ke Objek Dart:
+Gunakan fungsi bawaan Flutter dart:convert untuk mengonversi data JSON menjadi objek Dart. Ini melibatkan fungsi json.decode() untuk mengurai JSON menjadi bentuk Dart.
+
+c.Pemodelan Data: Buat model(models.dart) Dart yang sesuai dengan struktur data JSON untuk menyimpan data yang diurai. Misalnya, jika JSON memiliki array objek, buat kelas Dart untuk merepresentasikan objek tersebut.
+
+d.Gunakan Builder Widgets:
+Gunakan widget seperti FutureBuilder atau StreamBuilder jika data diambil secara asynchronous dari API. Ini memungkinkan Flutter untuk merespons perubahan data dan membangun ulang UI secara otomatis.
+
+e.Binding Data ke Widget:
+Gunakan objek-objek model yang telah diisi dengan data untuk mengikat nilai-nilai tersebut ke dalam widget Flutter. Misalnya, gunakan properti Text untuk menampilkan teks dari properti objek model.
+
+f.Widget Rebuild:
+
+Pastikan untuk memperbarui widget ketika data berubah. Ini bisa dilakukan dengan me-refresh state atau menggunakan setState jika ada perubahan pada data yang mempengaruhi tampilan.
+
+4.Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+
+Autentikasi dari Flutter ke Django:
+Input Data Akun:
+
+Pengguna memasukkan informasi akun seperti nama pengguna dan kata sandi ke dalam aplikasi Flutter.
+Permintaan Autentikasi:
+
+Aplikasi Flutter membuat permintaan HTTP (biasanya menggunakan package seperti http atau dio) ke endpoint autentikasi di backend Django. Permintaan ini mungkin berisi data seperti nama pengguna dan kata sandi yang dimasukkan oleh pengguna.
+Validasi Input:
+
+Django menerima permintaan tersebut dan melakukan validasi terhadap data yang diterima, seperti memeriksa apakah nama pengguna dan kata sandi valid.
+Proses Autentikasi:
+
+Django menggunakan metode autentikasi yang tersedia (seperti autentikasi berbasis token, session, OAuth, atau yang lainnya) untuk memverifikasi kredensial yang diberikan. Jika kredensial valid, Django menghasilkan token atau sesi yang akan digunakan untuk otentikasi selanjutnya.
+Respon dari Django ke Flutter:
+
+Django mengirimkan respon ke aplikasi Flutter. Respon ini dapat berupa token atau sesi yang disematkan dalam data JSON sebagai tanggapan terhadap permintaan autentikasi yang berhasil.
+Tampilan Menu pada Flutter setelah Autentikasi:
+Penyimpanan Token/Sesi:
+
+Aplikasi Flutter menyimpan token atau sesi yang diterima dari Django secara lokal, biasanya menggunakan metode penyimpanan yang aman seperti Shared Preferences atau Secure Storage.
+Permintaan Data Menu:
+
+Setelah autentikasi berhasil, aplikasi Flutter membuat permintaan ke endpoint backend Django yang meminta data menu atau informasi lain yang diperlukan oleh pengguna yang sudah diautentikasi.
+Validasi Token/Sesi:
+
+Django memvalidasi token atau sesi yang diterima dari aplikasi Flutter. Jika token/sesi valid, Django mengembalikan data menu yang diminta sebagai tanggapan.
+Tampilan Menu di Flutter:
+
+Aplikasi Flutter menggunakan data menu yang diterima dari Django untuk membuat tampilan menu yang sesuai. Data ini dapat diatur ke dalam struktur yang cocok untuk digunakan dalam widget-widget seperti ListView, GridView, atau Drawer untuk menampilkan menu-menu yang diperoleh.
+
+5. Penggunaan Widget
+
+kurang lebih tidak ada pengurangan eidget dari tugas kemarin, namun ada beberapa penambahan widget untuk tugas 9 ini:
+
+1. textfield : untuk input text
+2. enentukan dimensi ruang kosong dengan ukuran tertentu baik secara horizontal maupun vertikal di dalam tata letak.
+3. elevated button : memberikan tampilan tombol yang menonjol dengan bayangan dan dapat diangkat dari permukaan utama layar.
+   4.ListView : digunakan untuk menampilkan daftar item yang dapat digulirkan secara vertikal atau horizontal.
+4. ListTile : menyediakan tata letak khusus yang umumnya digunakan untuk menampilkan item dalam daftar dengan struktur yang khas.

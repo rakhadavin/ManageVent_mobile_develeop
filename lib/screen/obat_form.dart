@@ -1,9 +1,14 @@
 // ignore_for_file: unused_field
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:managevent/screen/menu.dart';
 import 'package:managevent/widgets/left_drawer.dart';
 import 'package:managevent/screen/show_prod.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class Obat {
   String namaObat;
@@ -162,54 +167,9 @@ class ObatFormField extends State<ObatForm> {
     );
   }
 
-  // Widget _satuanField() {
-  //   return DropdownButton(
-  //       hint: Text("Satuan : "),
-  //       dropdownColor: Colors.grey[400],
-  //       icon: Icon(Icons.arrow_drop_down_rounded),
-  //       iconSize: 20,
-  //       isExpanded: true,
-  //       style: TextStyle(color: Colors.black, fontSize: 15),
-  //       value: _jenisSatuan,
-  //       onChanged: (newValue) {
-  //         if (newValue != null) {
-  //           setState(() {
-  //             _jenisSatuan = newValue.toString();
-  //           });
-  //         }
-  //       },
-  //       items: listJenisSatuan.map((satuan) {
-  //         return DropdownMenuItem(value: satuan, child: Text("satuan"));
-  //       }).toList());
-  // }
-
-  // Widget _jenisObatField() {
-  //   return TextFormField(
-  //     decoration: InputDecoration(
-  //       label: const Text("Nama Obat"),
-  //       hintText: "Masukan nama obat",
-  //       border: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(5.0),
-  //       ),
-
-  //       // ignore: body_might_complete_normally_nullable
-  //     ),
-  //     onChanged: (String? value) {
-  //       setState(() {
-  //         _namaObat = value!;
-  //       });
-  //     },
-  //     validator: (String? value) {
-  //       if (value == null || value.isEmpty) {
-  //         return "Nama obat tidak boleh kosong!";
-  //       }
-  //       return null;
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Form Identitas Obat"),
@@ -230,10 +190,6 @@ class ObatFormField extends State<ObatForm> {
                     padding: const EdgeInsets.only(top: 0, bottom: 10),
                     child: _nameField(),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 0, bottom: 10),
-                  //   child: _satuanField(),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 0, bottom: 10),
                     child: _hargaField(),
@@ -246,9 +202,39 @@ class ObatFormField extends State<ObatForm> {
                   ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    onPressed: () {
-                      onSavePressed(context, 'Nama Item');
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        // Kirim ke Django dan tunggu respons
+                        // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                        final response = await request.postJson(
+                            "http://127.0.0.1:8000/create-flutter/",
+                            jsonEncode(<String, String>{
+                              'name': _namaObat,
+                              'price': _harga.toString(),
+                              'description': _deskripsi,
+                            }));
+                        if (response['status'] == 'success') {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Produk baru berhasil disimpan!"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text("Terdapat kesalahan, silakan coba lagi."),
+                          ));
+                        }
+                      }
                     },
+                    // onPressed: () {
+                    //   onSavePressed(context, 'Nama Item');
+                    // },
                     child: const Text(
                       'Save Changes',
                       style: TextStyle(color: Colors.white),

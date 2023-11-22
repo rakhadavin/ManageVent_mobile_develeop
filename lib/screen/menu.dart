@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:managevent/screen/List_product.dart';
 import 'package:managevent/screen/obat_form.dart';
 import 'package:managevent/screen/show_prod.dart';
 import 'package:managevent/widgets/left_drawer.dart';
@@ -90,8 +91,8 @@ class ShopCard extends StatelessWidget {
                 ));
           }
           if (item.name == "Lihat Daftar Obat") {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MyHomePage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProductPage()));
           }
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

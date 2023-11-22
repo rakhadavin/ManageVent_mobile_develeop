@@ -1,7 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:managevent/screen/item__views.dart';
+import 'package:managevent/screen/List_product.dart';
+import 'package:managevent/screen/login.dart';
+import 'package:managevent/screen/menu.dart';
 import 'package:managevent/screen/show_prod.dart';
 import 'package:managevent/screen/obat_form.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ShopItem {
   final String name;
@@ -18,11 +24,12 @@ class ShopCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Material(
       color: const Color.fromARGB(255, 0, 0, 0),
       child: InkWell(
         // Area responsive terhadap sentuhan
-        onTap: () {
+        onTap: () async {
           // Memunculkan SnackBar ketika diklik
           // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
@@ -36,8 +43,26 @@ class ShopCard extends StatelessWidget {
                 context, MaterialPageRoute(builder: (context) => ObatForm()));
           }
           if (item.name == "Lihat Daftar Obat") {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MyHomePage()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const ProductPage()));
+          } else if (item.name == "Logout") {
+            final response =
+                await request.logout("http://127.0.0.1:8000/auth/logout/");
+            String message = response["message"];
+            if (response['status']) {
+              String uname = response["username"];
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message Sampai jumpa, $uname."),
+              ));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message"),
+              ));
+            }
           }
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
